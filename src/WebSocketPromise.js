@@ -1,14 +1,40 @@
-class WebSocketPromise {
-	#url = null
-	#transport = null
-	#timeout = null
+/**
+ * A promise-based WebSocket client providing async/await interface for WebSocket communications.
+ * Supports JSON-RPC style requests with built-in error handling.
+ *
+ * @class
+ * @example
+ * // Basic usage
+ * const client = new WebSocketPromise('ws://localhost:8080')
+ * const response = await client.method('mirror', { data: 'test' })
+ * client.close()
+ */
+export class WebSocketPromise {
+	/** @type {string} */ #url = null
+	/** @type {WebSocket|null} */ #transport = null
+	/** @type {number|null} */ #timeout = null
+
+	/**
+	 * Map of pending requests waiting for server responses
+	 * @type {Map<string, { resolve: Function, reject: Function }>}
+	 */
 	pendingRequests = new Map()
 
+	/**
+	 * Creates a new WebSocketPromise instance
+	 * @param {string} url - WebSocket server URL to connect to
+	 * @param {Object} [options] - Connection options
+	 * @param {number} [options.timeout] - Connection timeout in milliseconds
+	 */
 	constructor(url, options = {}) {
 		this.#url = url
 		this.#timeout = options.timeout || 5000
 	}
 
+	/**
+	 * Establishes and returns the WebSocket connection
+	 * @returns {Promise<WebSocket>} Connected WebSocket instance
+	 */
 	async transport() {
 		if (!this.#transport || this.#transport.readyState !== WebSocket.OPEN) {
 			this.close()
@@ -24,7 +50,7 @@ class WebSocketPromise {
 			try {
 				let timeoutId
 				await Promise.race([
-					this.waitFor(this.#transport, 'open'),
+					this.#waitFor(this.#transport, 'open'),
 					new Promise((_, reject) => {
 						timeoutId = setTimeout(() => {
 							reject(new Error(`Connection timed out after ${this.#timeout}ms`))
@@ -60,6 +86,13 @@ class WebSocketPromise {
 		}
 	}
 
+	/**
+	 * Sends a JSON-RPC style request and waits for response
+	 * @param {string} method - RPC method name to call
+	 * @param {Object} [params={}] - Parameters to send with the request
+	 * @returns {Promise<Object>} Promise resolving with response data
+	 * @throws {Error} Throws error if RPC response contains error
+	 */
 	async method(method, params = {}) {
 		const request = {
 			id: crypto.randomUUID(),
@@ -92,13 +125,16 @@ class WebSocketPromise {
 		return promise
 	}
 
-	waitFor(target, event, options = { once: true, passive: true }) {
+	#waitFor(target, event, options = { once: true, passive: true }) {
 		return new Promise((resolve, reject) => {
 			target.addEventListener(event, resolve, options)
 			target.addEventListener('error', reject, options)
 		})
 	}
 
+	/**
+	 * Closes the WebSocket connection cleanly
+	 */
 	close() {
 		if (this.#transport) {
 			this.#transport.close()
@@ -112,5 +148,3 @@ class WebSocketPromise {
 		console.error('WebSocket error:', error)
 	}
 }
-
-export default WebSocketPromise

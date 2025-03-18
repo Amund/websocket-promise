@@ -1,7 +1,7 @@
 # @amund/websocket-promise
 
-[![Deno](https://img.shields.io/badge/Deno-1.0.0-blue?logo=deno)](https://deno.land)
 [![JSR](https://jsr.io/badges/@amund/websocket-promise)](https://jsr.io/@amund/websocket-promise)
+[![JSR Score](https://jsr.io/badges/@amund/websocket-promise/score)](https://jsr.io/@amund/websocket-promise)
 
 A promise-based WebSocket client, providing async/await interface for WebSocket communications.
 
@@ -19,7 +19,7 @@ deno add @amund/websocket-promise
 ## Usage
 
 ```javascript
-import WebSocketPromise from 'jsr:@amund/websocket-promise'
+import { WebSocketPromise } from 'jsr:@amund/websocket-promise'
 
 // Basic usage
 const client = new WebSocketPromise('ws://localhost:8080')
@@ -62,10 +62,6 @@ deno task test
 # or watch mode
 deno task test-watch
 ```
-
-## Contributing
-
-Contributions welcome! Please open issues or PRs on our [GitHub repository](https://github.com/amund/websocket-promise).
 
 ## License
 

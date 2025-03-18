@@ -1,6 +1,6 @@
 {
 	"name": "@amund/websocket-promise",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "A promise-based WebSocket client",
 	"repository": {
 		"type": "git",
@@ -24,5 +24,14 @@
 	},
 	"exports": {
 		".": "./src/WebSocketPromise.js"
+	},
+	"publish": {
+		"include": ["src"],
+		"exclude": ["src/test"]
+	},
+	"lint": {
+		"rules": {
+			"exclude": ["no-slow-types"]
+		}
 	}
 }
