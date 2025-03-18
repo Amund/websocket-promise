@@ -1,0 +1,28 @@
+{
+	"name": "@amund/websocket-promise",
+	"version": "1.0.0",
+	"description": "A promise-based WebSocket client",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/amund/websocket-promise"
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 120,
+		"indentWidth": 4,
+		"singleQuote": true,
+		"proseWrap": "preserve",
+		"semiColons": false
+	},
+	"tasks": {
+		"test": "deno test -A --unstable-broadcast-channel --reporter=dot",
+		"test-watch": "deno test -A --unstable-broadcast-channel --watch --reporter=dot"
+	},
+	"imports": {
+		"@std/assert": "jsr:@std/assert@^1.0.11",
+		"msw": "npm:msw@^2.7.3"
+	},
+	"exports": {
+		".": "./src/WebSocketPromise.js"
+	}
+}
