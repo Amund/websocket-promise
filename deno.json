@@ -1,7 +1,7 @@
 {
 	"name": "@amund/websocket-promise",
-	"version": "1.0.2",
-	"description": "A promise-based WebSocket client",
+	"version": "1.0.3",
+	"description": "A promise-based WebSocket client, providing async/await interface for WebSocket communications.",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/amund/websocket-promise"
