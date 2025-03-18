@@ -1,6 +1,6 @@
 {
 	"name": "@amund/websocket-promise",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "A promise-based WebSocket client, providing async/await interface for WebSocket communications.",
 	"repository": {
 		"type": "git",
@@ -26,7 +26,7 @@
 		".": "./src/WebSocketPromise.js"
 	},
 	"publish": {
-		"include": ["src"],
+		"include": ["README.md", "src"],
 		"exclude": ["src/test"]
 	},
 	"lint": {
